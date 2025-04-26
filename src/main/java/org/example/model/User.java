@@ -3,15 +3,17 @@ package org.example.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @Entity
 @Table(name = "User")
-public class User {
+public class User implements Serializable {
     @Id
-    @Column(name = "userid")
+    @Column(name = "UserID")
     private String userId;
 
-    @Column(name = "hoTen", nullable = false)
+    @Column(name = "Name", nullable = false)
     private String hoTen;
 
     @Column(name = "ngaySinh")
