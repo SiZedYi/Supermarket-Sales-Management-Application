@@ -2,6 +2,7 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -16,4 +17,9 @@ public class Category implements Serializable {
     private String categoryName;
     private String description;
     private String picture;
+
+    @Override
+    public String toString() {
+        return  categoryName;
+    }
 }

@@ -20,4 +20,8 @@ public class ProductDAO extends BaseDAO {
         if (p != null) em.remove(p);
         em.getTransaction().commit();
     }
+
+    public List<Product> findAll() {
+        return em.createQuery("SELECT p FROM Product p", Product.class).getResultList();
+    }
 }

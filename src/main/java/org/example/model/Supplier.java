@@ -2,6 +2,7 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -18,4 +19,9 @@ public class Supplier implements Serializable {
     private String address;
     private String city;
     private String country;
+
+    @Override
+    public String toString() {
+        return  companyName;
+    }
 }

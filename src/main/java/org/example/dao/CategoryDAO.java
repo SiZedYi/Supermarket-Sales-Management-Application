@@ -2,6 +2,7 @@ package org.example.dao;
 
 // CategoryDAOImpl.java
 import org.example.model.Category;
+import org.example.model.Supplier;
 
 import java.sql.*;
 import java.util.*;
@@ -19,5 +20,9 @@ public class CategoryDAO extends BaseDAO {
         Category c = em.find(Category.class, id);
         if (c != null) em.remove(c);
         em.getTransaction().commit();
+    }
+
+    public List<Category> findAll() {
+        return em.createQuery("SELECT s FROM Category s", Category.class).getResultList();
     }
 }

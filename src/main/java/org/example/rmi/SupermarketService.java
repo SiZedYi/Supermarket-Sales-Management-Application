@@ -24,4 +24,9 @@ public interface SupermarketService extends Remote {
     List<Employee> listEmployees() throws RemoteException;
     void addEmployee(Employee employee) throws RemoteException;
     void deleteEmployee(String userId) throws RemoteException;
+    List<Product> getAllProducts() throws RemoteException;
+    List<Supplier> listSuppliers() throws RemoteException;
+    List<Category> listCategories() throws RemoteException;
+    List<Invoice> listInvoices() throws RemoteException;
+    List<InvoiceDetail> listInvoiceDetails(Long invoiceId) throws RemoteException;
 }
