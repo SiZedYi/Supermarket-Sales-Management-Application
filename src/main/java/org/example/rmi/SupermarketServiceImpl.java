@@ -6,7 +6,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
-import org.example.rmi.SupermarketService;
+
 import org.example.model.*;
 import org.example.dao.*;
 
@@ -51,11 +51,11 @@ public class SupermarketServiceImpl extends UnicastRemoteObject implements Super
     }
 
     @Override
-    public void payInvoice(Long customerId, Long employeeId, Date orderDate) throws RemoteException {
+    public void payInvoice(String customerId, String employeeId, Date orderDate) throws RemoteException {
         try {
             Customer customer = new CustomerDAO().find(customerId);
             Employee employee = employeeDAO.findAll().stream()
-                    .filter(e -> e.getUserId().equals(employeeId.toString()))
+                    .filter(e -> e.getUserId().equals(employeeId))
                     .findFirst().orElse(null);
             if (customer != null && employee != null) {
                 Invoice invoice = new Invoice();
@@ -196,6 +196,15 @@ public class SupermarketServiceImpl extends UnicastRemoteObject implements Super
             return invoiceDAO.findInvoiceDetails(invoiceId);
         } catch (Exception e) {
             throw new RemoteException("List invoice details failed: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean addUser(User user, String password) throws RemoteException {
+        try {
+            return userDAO.addUser(user, password);
+        } catch (Exception e) {
+            throw new RemoteException("Add user failed: " + e.getMessage());
         }
     }
 

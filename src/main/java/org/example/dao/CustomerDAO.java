@@ -4,7 +4,7 @@ import org.example.model.Customer;
 
 // CustomerDAO.java
 public class CustomerDAO extends BaseDAO {
-    public Customer find(Long id) {
+    public Customer find(String id) {
         return em.find(Customer.class, id);
     }
 }

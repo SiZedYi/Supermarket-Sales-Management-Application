@@ -13,7 +13,8 @@ public interface SupermarketService extends Remote {
     Account login(String userId, String password) throws RemoteException;
     User viewUserInfo(String userId) throws RemoteException;
     void changePassword(String userId, String newPassword) throws RemoteException;
-    void payInvoice(Long customerId, Long employeeId, Date orderDate) throws RemoteException;
+
+    void payInvoice(String customerId, String employeeId, Date orderDate) throws RemoteException;
 
     // Manager
     void addCategory(Category category) throws RemoteException;
@@ -29,4 +30,5 @@ public interface SupermarketService extends Remote {
     List<Category> listCategories() throws RemoteException;
     List<Invoice> listInvoices() throws RemoteException;
     List<InvoiceDetail> listInvoiceDetails(Long invoiceId) throws RemoteException;
+    boolean addUser(User user, String password) throws RemoteException;
 }

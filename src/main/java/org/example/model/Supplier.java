@@ -13,7 +13,7 @@ public class Supplier implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "supplierid")
-    private Long supplierId;
+    private String supplierId;
 
     private String companyName;
     private String address;

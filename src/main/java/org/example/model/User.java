@@ -2,11 +2,14 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "User")
 public class User implements Serializable {
     @Id
@@ -17,7 +20,7 @@ public class User implements Serializable {
     private String hoTen;
 
     @Column(name = "ngaySinh")
-    private String ngaySinh;
+    private Date ngaySinh;
 
     @Column(name = "CCCD")
     private String cccd;
@@ -28,7 +31,12 @@ public class User implements Serializable {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @OneToOne
-    @JoinColumn(name = "userid", referencedColumnName = "userid")
-    private Account account;
+    public User(String userId, String hoTen, Date ngaySinh, String cccd, String gioiTinh, String email) {
+        this.userId = userId;
+        this.hoTen = hoTen;
+        this.ngaySinh = ngaySinh;
+        this.cccd = cccd;
+        this.gioiTinh = gioiTinh;
+        this.email = email;
+    }
 }
