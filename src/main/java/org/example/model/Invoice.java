@@ -23,8 +23,8 @@ public class Invoice implements Serializable {
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "employeeid", nullable = false)
-    private Employee employee;
+    @JoinColumn(name = "userid", nullable = false)
+    private User user;
 
     @Column(name = "orderDate")
     private Date orderDate;

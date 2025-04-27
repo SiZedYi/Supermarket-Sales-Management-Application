@@ -4,9 +4,9 @@ package org.example.rmi;
 
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
-import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.EntityTransaction;
 import org.example.model.*;
 import org.example.dao.*;
 
@@ -19,6 +19,8 @@ public class SupermarketServiceImpl extends UnicastRemoteObject implements Super
     private SaleAgentDAO saleAgentDAO = new SaleAgentDAO();
     private EmployeeDAO employeeDAO = new EmployeeDAO();
     private SupplierDAO supplierDAO = new SupplierDAO();
+    private CustomerDAO customerDAO = new CustomerDAO();
+
     public SupermarketServiceImpl() throws RemoteException {
         super();
     }
@@ -47,27 +49,6 @@ public class SupermarketServiceImpl extends UnicastRemoteObject implements Super
             accountDAO.updatePassword(userId, newPassword);
         } catch (Exception e) {
             throw new RemoteException("Change password failed: " + e.getMessage());
-        }
-    }
-
-    @Override
-    public void payInvoice(String customerId, String employeeId, Date orderDate) throws RemoteException {
-        try {
-            Customer customer = new CustomerDAO().find(customerId);
-            Employee employee = employeeDAO.findAll().stream()
-                    .filter(e -> e.getUserId().equals(employeeId))
-                    .findFirst().orElse(null);
-            if (customer != null && employee != null) {
-                Invoice invoice = new Invoice();
-                invoice.setCustomer(customer);
-                invoice.setEmployee(employee);
-                invoice.setOrderDate(orderDate);
-                invoiceDAO.save(invoice);
-            } else {
-                throw new RemoteException("Customer or Employee not found.");
-            }
-        } catch (Exception e) {
-            throw new RemoteException("Pay invoice failed: " + e.getMessage());
         }
     }
 
@@ -182,15 +163,6 @@ public class SupermarketServiceImpl extends UnicastRemoteObject implements Super
     }
 
     @Override
-    public List<Invoice> listInvoices() throws RemoteException {
-        try {
-            return invoiceDAO.findAll();
-        } catch (Exception e) {
-            throw new RemoteException("List invoices failed: " + e.getMessage());
-        }
-    }
-
-    @Override
     public List<InvoiceDetail> listInvoiceDetails(Long invoiceId) throws RemoteException {
         try {
             return invoiceDAO.findInvoiceDetails(invoiceId);
@@ -216,4 +188,56 @@ public class SupermarketServiceImpl extends UnicastRemoteObject implements Super
             throw new RemoteException("List suppliers failed: " + e.getMessage());
         }
     }
+
+
+    @Override
+    public boolean createInvoice(Invoice invoice, List<InvoiceDetail> details) throws RemoteException {
+        try {
+            invoiceDAO.saveInvoice(invoice, details);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RemoteException("Failed to create invoice", e);
+        }
+    }
+
+    @Override
+    public List<Invoice> getAllInvoices() throws RemoteException {
+        try {
+            return invoiceDAO.findAll();
+        } catch (Exception e) {
+            throw new RemoteException("List invoices failed: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public List<Customer> getAllCustomers() throws RemoteException {
+        try {
+            return customerDAO.findAll();
+        } catch (Exception e) {
+            throw new RemoteException("List invoices failed: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public List<InvoiceDetail> getInvoiceDetails(Long invoiceId) throws RemoteException {
+        try {
+            return invoiceDAO.findInvoiceDetails(invoiceId);
+        } catch (Exception e) {
+            throw new RemoteException("Get invoice details failed: " + e.getMessage(), e);
+        }
+    }
+
+//    @Override
+//    public boolean deleteInvoiceDetail(String invoiceId, String productId) throws RemoteException {
+//        try {
+//            EntityTransaction tx = em.getTransaction();
+//            tx.begin();
+//            boolean result = invoiceDao.deleteDetail(invoiceId, productId);
+//            tx.commit();
+//            return result;
+//        } catch (Exception e) {
+//            throw new RemoteException("Delete invoice detail failed: " + e.getMessage(), e);
+//        }
+//    }
 }
