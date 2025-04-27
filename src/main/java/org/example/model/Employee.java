@@ -3,6 +3,7 @@ package org.example.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
 @Entity
 @NoArgsConstructor
 @Table(name = "Employee")
+@ToString
 public class Employee implements Serializable {
     @Id
     @Column(name = "userid")

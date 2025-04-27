@@ -1,10 +1,11 @@
 package org.example.dao;
 
 import jakarta.persistence.EntityTransaction;
-import org.example.model.Invoice;
-import org.example.model.InvoiceDetail;
-import org.example.model.SaleAgent;
+import jakarta.persistence.Query;
+import org.example.model.*;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class InvoiceDAO extends BaseDAO {
@@ -22,30 +23,121 @@ public class InvoiceDAO extends BaseDAO {
     }
 
     public List<Invoice> findAll() {
-        return em.createQuery("SELECT i FROM Invoice i", Invoice.class).getResultList();
+
+        String sql = "SELECT i.InvoiceID, c.ContactName, u.Name, i.orderDate " +
+                "FROM invoices i " +
+                "JOIN customers c ON i.CustomerID = c.CustomerID " +
+                "JOIN user u ON i.UserID = u.UserID";
+        Query query = em.createNativeQuery(sql);
+        @SuppressWarnings("unchecked")
+        List<Object[]> rows = query.getResultList();
+
+        List<Invoice> result = new ArrayList<>();
+        for (Object[] row : rows) {
+            Long id = ((Number) row[0]).longValue();
+            String contactName = (String) row[1];
+            String userName = (String) row[2];
+            Date orderDate = (Date) row[3];
+
+            Invoice inv = new Invoice();
+            inv.setInvoiceId(id);
+
+            Customer c = new Customer();
+            c.setContactName(contactName);
+            inv.setCustomer(c);
+
+            User u = new User();
+            u.setHoTen(userName);
+            inv.setUser(u);
+
+            inv.setOrderDate(orderDate);
+            result.add(inv);
+        }
+        return result;
     }
 
+    /**
+     * Lấy chi tiết hóa đơn cho giao diện,
+     * sử dụng native SQL để tránh vòng quan hệ đệ quy.
+     */
     public List<InvoiceDetail> findInvoiceDetails(Long invoiceId) {
-        return em.createQuery("SELECT s FROM InvoiceDetails s WHERE s.InvoiceID = :invoiceId", InvoiceDetail.class)
-                .setParameter("invoiceId", invoiceId)
-                .getResultList();
+        String sql = "SELECT d.ProductID, p.ProductName, d.Quantity, d.unitPrice " +
+                "FROM invoicedetails d " +
+                "JOIN products p ON d.ProductID = p.ProductID " +
+                "WHERE d.InvoiceID = ?";
+        Query query = em.createNativeQuery(sql);
+        query.setParameter(1, invoiceId);
+        @SuppressWarnings("unchecked")
+        List<Object[]> rows = query.getResultList();
+
+        List<InvoiceDetail> result = new ArrayList<>();
+        for (Object[] row : rows) {
+            Long prodId = ((Number) row[0]).longValue();
+            String prodName = (String) row[1];
+            Integer quantity = ((Number) row[2]).intValue();
+            Double unitPrice = ((Number) row[3]).doubleValue();
+            Double discount = 0.0;
+
+            // Map vào InvoiceDetail model cơ bản
+            InvoiceDetail detail = new InvoiceDetail();
+            Product p = new Product();
+            p.setProductId(prodId);
+            p.setProductName(prodName);
+            detail.setProduct(p);
+            detail.setQuantity(quantity);
+            detail.setUnitPrice(unitPrice);
+            detail.setDiscount(discount);
+
+            result.add(detail);
+        }
+        return result;
     }
 
-    public void saveInvoice(Invoice invoice, List<InvoiceDetail> details) throws Exception {
-        EntityTransaction transaction = em.getTransaction();
+
+    public boolean saveInvoice(Invoice invoice, List<InvoiceDetail> details) throws Exception {
+        EntityTransaction tx = em.getTransaction();
         try {
-            transaction.begin();
-            em.persist(invoice);
-            for (InvoiceDetail detail : details) {
-                detail.setInvoice(invoice); // Gán invoice cho detail trước khi persist
-                em.persist(detail);
+            tx.begin();
+
+            // 1) Chèn Invoice
+            String insertInvoiceSql =
+                    "INSERT INTO Invoices (customerid, orderDate, userid) VALUES (?, ?, ?)";
+            Query insertInv = em.createNativeQuery(insertInvoiceSql);
+            insertInv.setParameter(1, invoice.getCustomer().getCustomerId());
+            insertInv.setParameter(2, invoice.getOrderDate());
+            insertInv.setParameter(3, invoice.getUser().getUserId());
+            insertInv.executeUpdate(); // dùng executeUpdate cho INSERT
+
+            // 2) Lấy invoiceId mới sinh
+            Number lastId = (Number) em.createNativeQuery("SELECT LAST_INSERT_ID()")
+                    .getSingleResult();
+            Long generatedInvoiceId = lastId.longValue();
+            invoice.setInvoiceId(generatedInvoiceId);
+
+            // 3) Chèn từng InvoiceDetail
+            String insertDetailSql =
+                    "INSERT INTO InvoiceDetails (invoiceid, productid, quantity, unitPrice, discount) VALUES (?, ?, ?, ?, ?)";
+            for (InvoiceDetail d : details) {
+                Query insertDet = em.createNativeQuery(insertDetailSql);
+                insertDet.setParameter(1, generatedInvoiceId);
+                insertDet.setParameter(2, d.getProduct().getProductId());
+                insertDet.setParameter(3, d.getQuantity());
+                insertDet.setParameter(4, d.getUnitPrice());
+                insertDet.setParameter(5, d.getDiscount());
+                insertDet.executeUpdate();
             }
-            transaction.commit();
+
+            tx.commit();
+            return true;
         } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
+            if (tx.isActive()) tx.rollback();
             throw new Exception("Failed to save invoice: " + e.getMessage(), e);
+        } finally {
+            em.close();
         }
     }
+
+
+
+
 }

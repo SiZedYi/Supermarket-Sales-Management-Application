@@ -3,6 +3,7 @@ package org.example.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,12 +12,13 @@ import java.util.List;
 @Data
 @Entity
 @NoArgsConstructor
+@ToString
 @Table(name = "Invoices")
 public class Invoice implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "invoiceid")
-    private String invoiceId;
+    private Long invoiceId;
 
     @ManyToOne
     @JoinColumn(name = "customerid", nullable = false)

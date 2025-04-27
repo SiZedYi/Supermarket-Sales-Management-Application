@@ -19,21 +19,20 @@ public interface SupermarketService extends Remote {
     void addProduct(Product product) throws RemoteException;
     void deleteProduct(Long productId) throws RemoteException;
     void cancelInvoiceDetail(Long detailId) throws RemoteException;
-    List<Employee> listEmployees() throws RemoteException;
+    List<User> listEmployees() throws RemoteException;
     void addEmployee(Employee employee) throws RemoteException;
     void deleteEmployee(String userId) throws RemoteException;
     List<Product> getAllProducts() throws RemoteException;
     List<Supplier> listSuppliers() throws RemoteException;
     List<Category> listCategories() throws RemoteException;
-    List<InvoiceDetail> listInvoiceDetails(Long invoiceId) throws RemoteException;
     boolean addUser(User user, String password) throws RemoteException;
 
     boolean createInvoice(Invoice invoice, List<InvoiceDetail> details) throws RemoteException;
 
     List<Invoice> getAllInvoices() throws RemoteException;
     List<Customer> getAllCustomers() throws RemoteException;
-
+//    Invoice getInvoiceById (Long invoiceId) throws RemoteException;
 //    boolean deleteInvoiceDetail(String invoiceId, String productId) throws RemoteException;
-
+    Product getProductById(Long productId) throws RemoteException;
     List<InvoiceDetail> getInvoiceDetails(Long invoiceId) throws RemoteException;
 }

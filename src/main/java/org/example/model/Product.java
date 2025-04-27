@@ -3,6 +3,7 @@ package org.example.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -10,11 +11,12 @@ import java.io.Serializable;
 @Entity
 @NoArgsConstructor
 @Table(name = "Products")
+@ToString
 public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "productid")
-    private String productId;
+    private Long productId;
 
     private String productName;
     private Double unitPrice;

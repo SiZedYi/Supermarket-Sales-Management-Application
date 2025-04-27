@@ -3,6 +3,7 @@ package org.example.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.Date;
 @Data
 @Entity
 @NoArgsConstructor
+@ToString
 @Table(name = "User")
 public class User implements Serializable {
     @Id
@@ -38,5 +40,9 @@ public class User implements Serializable {
         this.cccd = cccd;
         this.gioiTinh = gioiTinh;
         this.email = email;
+    }
+
+    public User(String userId) {
+        this.userId = userId;
     }
 }

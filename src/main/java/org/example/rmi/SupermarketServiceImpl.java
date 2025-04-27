@@ -98,7 +98,7 @@ public class SupermarketServiceImpl extends UnicastRemoteObject implements Super
     }
 
     @Override
-    public List<Employee> listEmployees() throws RemoteException {
+    public List<User> listEmployees() throws RemoteException {
         try {
             return employeeDAO.findAll();
         } catch (Exception e) {
@@ -119,12 +119,7 @@ public class SupermarketServiceImpl extends UnicastRemoteObject implements Super
     @Override
     public void deleteEmployee(String userId) throws RemoteException {
         try {
-            employeeDAO.findAll().stream()
-                    .filter(e -> e.getUserId().equals(userId))
-                    .findFirst()
-                    .ifPresent(e -> {
-                        entityManagerRemove(e);
-                    });
+            employeeDAO.delete(userId);
         } catch (Exception e) {
             throw new RemoteException("Delete employee failed: " + e.getMessage());
         }
@@ -159,15 +154,6 @@ public class SupermarketServiceImpl extends UnicastRemoteObject implements Super
             return categoryDAO.findAll();
         } catch (Exception e) {
             throw new RemoteException("List categories failed: " + e.getMessage());
-        }
-    }
-
-    @Override
-    public List<InvoiceDetail> listInvoiceDetails(Long invoiceId) throws RemoteException {
-        try {
-            return invoiceDAO.findInvoiceDetails(invoiceId);
-        } catch (Exception e) {
-            throw new RemoteException("List invoice details failed: " + e.getMessage());
         }
     }
 
@@ -214,6 +200,24 @@ public class SupermarketServiceImpl extends UnicastRemoteObject implements Super
     public List<Customer> getAllCustomers() throws RemoteException {
         try {
             return customerDAO.findAll();
+        } catch (Exception e) {
+            throw new RemoteException("List invoices failed: " + e.getMessage(), e);
+        }
+    }
+
+//    @Override
+//    public Invoice getInvoiceById(Long invoiceId) throws RemoteException {
+//        try {
+//            return invoiceDAO.findInvoiceById(invoiceId);
+//        } catch (Exception e) {
+//            throw new RemoteException("List invoices failed: " + e.getMessage(), e);
+//        }
+//    }
+
+    @Override
+    public Product getProductById(Long productId) throws RemoteException {
+        try {
+            return productDAO.findByProductId(productId);
         } catch (Exception e) {
             throw new RemoteException("List invoices failed: " + e.getMessage(), e);
         }

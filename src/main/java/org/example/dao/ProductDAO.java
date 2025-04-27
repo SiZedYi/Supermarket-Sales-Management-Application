@@ -24,4 +24,10 @@ public class ProductDAO extends BaseDAO {
     public List<Product> findAll() {
         return em.createQuery("SELECT p FROM Product p", Product.class).getResultList();
     }
+
+    public Product findByProductId(Long productId) {
+        return em.createQuery("SELECT s FROM Product s WHERE s.productId = :pid", Product.class)
+                .setParameter("pid", productId)
+                .getSingleResult();
+    }
 }
