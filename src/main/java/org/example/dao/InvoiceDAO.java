@@ -25,14 +25,16 @@ public class InvoiceDAO extends BaseDAO {
     public List<Invoice> findAll() {
 
         String sql = "SELECT i.InvoiceID, c.ContactName, u.Name, i.orderDate " +
-                "FROM invoices i " +
-                "JOIN customers c ON i.CustomerID = c.CustomerID " +
-                "JOIN user u ON i.UserID = u.UserID";
+                "FROM Invoices i " +
+                "JOIN Customers c ON i.CustomerID = c.CustomerID " +
+                "JOIN User u ON i.UserID = u.UserID";
         Query query = em.createNativeQuery(sql);
         @SuppressWarnings("unchecked")
         List<Object[]> rows = query.getResultList();
 
         List<Invoice> result = new ArrayList<>();
+        System.out.println(result);
+
         for (Object[] row : rows) {
             Long id = ((Number) row[0]).longValue();
             String contactName = (String) row[1];
@@ -62,8 +64,8 @@ public class InvoiceDAO extends BaseDAO {
      */
     public List<InvoiceDetail> findInvoiceDetails(Long invoiceId) {
         String sql = "SELECT d.ProductID, p.ProductName, d.Quantity, d.unitPrice " +
-                "FROM invoicedetails d " +
-                "JOIN products p ON d.ProductID = p.ProductID " +
+                "FROM InvoiceDetails d " +
+                "JOIN Products p ON d.ProductID = p.ProductID " +
                 "WHERE d.InvoiceID = ?";
         Query query = em.createNativeQuery(sql);
         query.setParameter(1, invoiceId);
@@ -132,8 +134,6 @@ public class InvoiceDAO extends BaseDAO {
         } catch (Exception e) {
             if (tx.isActive()) tx.rollback();
             throw new Exception("Failed to save invoice: " + e.getMessage(), e);
-        } finally {
-            em.close();
         }
     }
 

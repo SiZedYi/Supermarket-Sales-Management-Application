@@ -8,9 +8,9 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "SaleAgent")
+@Table(name = "SalesAgent")
 @ToString
-public class SaleAgent implements Serializable {
+public class SalesAgent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;

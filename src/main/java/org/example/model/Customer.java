@@ -11,7 +11,6 @@ import java.io.Serializable;
 @Entity
 @NoArgsConstructor
 @Table(name = "Customers")
-@ToString
 public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +23,12 @@ public class Customer implements Serializable {
     private String region;
     private String postalCode;
     private String phone;
+
+    public Customer(String contactName, String address, String city, String region, String phone) {
+        this.contactName = contactName;
+        this.address = address;
+        this.city = city;
+        this.region = region;
+        this.phone = phone;
+    }
 }
