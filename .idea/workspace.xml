@@ -6,20 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="a8ed1692-e239-491b-b85c-754d439db31a" name="Changes" comment="add feature">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/TestMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/EmployeeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dao/EmployeeDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Supermarket Sales Management.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Supermarket Sales Management.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/InvoiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dao/InvoiceDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dao/ProductDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/SaleAgentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dao/SaleAgentDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Invoice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/InvoiceDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/InvoiceDetail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/SaleAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/SaleAgent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Supplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Supplier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/SaleAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/SalesAgent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/rmi/SupermarketService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/rmi/SupermarketService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/rmi/SupermarketServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/rmi/SupermarketServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +44,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/SiZedYi/Supermarket-Sales-Management-Application.git&quot;,
-    &quot;accountId&quot;: &quot;7a84fb9d-1328-4f9b-bc18-2ee139fe405e&quot;
+    &quot;accountId&quot;: &quot;ba32f134-1e2d-4d41-8beb-9daa0e03d042&quot;
   }
 }</component>
   <component name="ProblemsViewState">
@@ -82,12 +75,15 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Supermarket-Sales-Management-Application&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/dev9/IdeaProjects/Supermarket-Sales-Management-Client&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -120,6 +116,14 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -131,6 +135,11 @@
       <workItem from="1745563461974" duration="1745000" />
       <workItem from="1745568874477" duration="84000" />
       <workItem from="1745568967545" duration="5544000" />
+      <workItem from="1745814009525" duration="21000" />
+      <workItem from="1745814138486" duration="2000" />
+      <workItem from="1745814280722" duration="222000" />
+      <workItem from="1745814512668" duration="332000" />
+      <workItem from="1745820084927" duration="6035000" />
     </task>
     <task id="LOCAL-00001" summary="add feature">
       <option name="closed" value="true" />

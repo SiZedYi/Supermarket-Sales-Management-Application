@@ -1,12 +1,12 @@
 package org.example.dao;
 
 import org.example.model.Invoice;
-import org.example.model.SaleAgent;
+import org.example.model.SalesAgent;
 
 // SaleAgentDAO.java
 public class SaleAgentDAO extends BaseDAO {
-    public SaleAgent findByUserId(String userId) {
-        return em.createQuery("SELECT s FROM SaleAgent s WHERE s.user.userId = :uid", SaleAgent.class)
+    public SalesAgent findByUserId(String userId) {
+        return em.createQuery("SELECT s FROM SalesAgent s WHERE s.user.userId = :uid", SalesAgent.class)
                 .setParameter("uid", userId)
                 .getSingleResult();
     }

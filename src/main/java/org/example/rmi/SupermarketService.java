@@ -12,7 +12,7 @@ public interface SupermarketService extends Remote {
     // Sales Agent
     Account login(String userId, String password) throws RemoteException;
     User viewUserInfo(String userId) throws RemoteException;
-    void changePassword(String userId, String newPassword) throws RemoteException;
+    void changePassword(String userId,String newPassword) throws RemoteException;
     // Manager
     void addCategory(Category category) throws RemoteException;
     void deleteCategory(Long categoryId) throws RemoteException;
