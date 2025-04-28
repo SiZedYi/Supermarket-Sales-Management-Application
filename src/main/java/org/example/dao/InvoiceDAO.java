@@ -27,7 +27,8 @@ public class InvoiceDAO extends BaseDAO {
         String sql = "SELECT i.InvoiceID, c.ContactName, u.Name, i.orderDate " +
                 "FROM Invoices i " +
                 "JOIN Customers c ON i.CustomerID = c.CustomerID " +
-                "JOIN User u ON i.UserID = u.UserID";
+                "JOIN User u ON i.UserID = u.UserID " +
+                "ORDER BY i.orderDate DESC";
         Query query = em.createNativeQuery(sql);
         @SuppressWarnings("unchecked")
         List<Object[]> rows = query.getResultList();
@@ -58,10 +59,7 @@ public class InvoiceDAO extends BaseDAO {
         return result;
     }
 
-    /**
-     * Lấy chi tiết hóa đơn cho giao diện,
-     * sử dụng native SQL để tránh vòng quan hệ đệ quy.
-     */
+
     public List<InvoiceDetail> findInvoiceDetails(Long invoiceId) {
         String sql = "SELECT d.ProductID, p.ProductName, d.Quantity, d.unitPrice " +
                 "FROM InvoiceDetails d " +
